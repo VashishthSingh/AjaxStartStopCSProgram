@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+	</script>
+ 	<script type="text/javascript"> 
+
+// 		$(document).ready(function() {
+// 			$('button').click(function() {
+// 				var fun=function(){
+// 					$.ajax({
+// 						url : 'Servlet1',
+//  						data:{
+//  						startStopProgram:$('button').text()
+//  						},
+//  						success : function(data, status) {
+//  							document.getElementById("spanId").innerHTML = $('button').text()+data+status;
+//  						}
+//  				 });
+// 				};
+// 				var interval = setInterval(fn, 500);
+				
+// 			});
+// 		});
+
+// 		function myFunction() {
+//   			setInterval(function(){ 
+
+//   				$.ajax({
+// 					url : 'Servlet2',
+// 					dataType: "json",
+// 					data:{
+// 						startStopProgram:$('button').text()
+// 					},
+// 					success : function(data, status) {
+// 							document.getElementById("spanId").innerHTML=data+status;
+// 					}
+// 				 });
+
+//   			}, 3000);
+// 		}
+		
+// 		function executeProgram(){
+// 			var startProgram;
+// 			startProgram=setInterval(function(){ 
+//   				$.ajax({
+// 					url : 'Servlet2',
+// 					dataType: "json",
+// 					data:{
+// 						startStopProgram:$('button').text()
+// 					},
+// 					success : function(data, status) {
+// 							document.getElementById("spanId").innerHTML=data+status;
+// 					}
+// 				 });
+
+//   			}, 3000);
+
+// 			$('#btn1').click(function() {
+// 				var btn = document.getElementById("btn1");
+// 				if($('button').text()=='STOP'){
+// 					clearInterval(startProgram);
+// 					btn.innerHTML = 'RESUME';
+// 				}
+// 				else{
+// 					btn.innerHTML = 'STOP';
+// 					startProgram=setInterval(function(){ 
+// 		  				$.ajax({
+// 							url : 'Servlet2',
+// 							dataType: "json",
+// 							data:{
+// 								startStopProgram:$('button').text()
+// 							},
+// 							success : function(data, status) {
+// 									document.getElementById("spanId").innerHTML=data+status;
+// 							}
+// 						 });
+
+// 		  			}, 3000);
+// 				}
+// 			)};
+// 		}
+
+		function ajaxCall() {
+//   			var d = new Date();
+//   			var t = d.toLocaleTimeString();
+//   			document.getElementById("spanId").innerHTML = t;
+  			
+  			$.ajax({
+				url : 'Servlet2',
+				dataType: "json",
+				success : function(data, status) {
+						document.getElementById("spanId").innerHTML=data+status;
+				}
+			 });
+  			
+		}
+		
+		var myVar = setInterval(executeProgram, 3000);
+		function executeProgram() {
+			ajaxCall();
+		}
+		
+		function startResumeProgram() {
+			var btn = document.getElementById("myButton");
+			if($('button').text()=='STOP'){
+				btn.innerHTML = 'RESUME';
+				clearInterval(myVar);
+			}
+			else{
+				btn.innerHTML = 'STOP';
+ 				myVar = setInterval(executeProgram, 3000);
+				function executeProgram() {
+					ajaxCall();
+				}
+			}
+		}
+		
+	</script>
+</head>
+<body>
+
+	<button id="myButton" onclick="startResumeProgram()">STOP</button>
+	<span id="spanId"></span>
+	
+</body>
+</html>
